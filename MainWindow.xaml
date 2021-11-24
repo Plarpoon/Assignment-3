@@ -4,7 +4,91 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Super Calculator by Alex" Height="1000" Width="900" ResizeMode="NoResize">
+
+    <Grid Background="#FFDADADA" Margin="0,0,0,0" Height="1000" Width="900">
+        <!-- UpdateSourceTrigger=PropertyChanged makes sure that changes in the TextBoxes are immediately applied to the model. -->
+
+        <!--#region Skeleton-->
+        <GroupBox Header="BMI Calculator" Margin="10,10,539,814" />
+        <GroupBox Header="Saving Plan" Margin="570,10,10,779" />
+        <GroupBox Header="Unit" Margin="378,10,347,862" />
+        <Button x:Name="Button_CalculateBMI" Content="Calculate BMI" HorizontalAlignment="Left" Margin="76,0,0,759" VerticalAlignment="Bottom" Width="220" Height="40" Click="Button_CalculateBMI_Click" />
+        <Button x:Name="Button_CalculateSavings" Content="Calculate Savings" Margin="620,229,60,0" VerticalAlignment="Top" Height="40" Click="Button_CalculateSavings_Click" />
+        <GroupBox Header="Results for.." Margin="10,240,347,512" />
+        <GroupBox Header="Future Value" Margin="570,274,10,512" />
+        <TextBox Margin="730,0,-562,0" TextWrapping="Wrap" Text="" Width="140" Height="18" />
+        <GroupBox Header="BMR Calculator" Margin="10,488,10,48" />
+        <GroupBox Header="Gender" Margin="25,528,691,0" Height="120" VerticalAlignment="Top" />
+        <GroupBox Header="Weekly Activity Level" Margin="30,660,665,136" />
+        <ListBox x:Name="BmrCalculatorResults" Margin="250,528,30,171" />
+        <Button x:Name="Button_CalculateBMR" Content="Calculate BMR" Margin="0,875,214,0" HorizontalAlignment="Right" Width="220" Height="40" VerticalAlignment="Top" Click="Button_CalculateBMR_Click" />
+        <!--#endregion-->
+
+        <!--#region BMI Calculator-->
+        <TextBox x:Name="NameContent" Margin="186,51,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="HeightContent2" Margin="264,84,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="HeightContent1" HorizontalAlignment="Left" Margin="186,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" />
+        <TextBox x:Name="WeightContent" Margin="186,110,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <Label Content="Name" HorizontalAlignment="Left" Margin="25,47,0,0" VerticalAlignment="Top" Width="105" />
+        <Label x:Name="BmiCalculatorHeight" Content="Height (ft and in)" HorizontalAlignment="Left" Margin="25,80,0,0" VerticalAlignment="Top" Width="127" />
+        <Label x:Name="BmiCalculatorWeight" Content="Weight (lbs)" HorizontalAlignment="Left" Margin="25,106,0,0" VerticalAlignment="Top" Width="127" />
+        <!--#endregion-->
+
+        <!--#region Saving Plan-->
+        <TextBox Margin="730,51,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox Margin="730,84,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox Margin="730,110,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox Margin="730,137,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox Margin="730,168,30,804" TextWrapping="Wrap" Text="" Width="140" />
+        <Label Content="Monthly deposit" Margin="581,80,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Period (years)" Margin="581,106,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Growth (or interest) in %" Margin="581,133,205,0" VerticalAlignment="Top" Height="26" Width="114" />
+        <Label Content="Fees in %" Margin="581,164,205,800" Width="114" />
+        <!--#endregion-->
+
+        <!--#region Future value-->
+        <TextBox Margin="730,330,30,642" TextWrapping="Wrap" Text="" Width="140" />
+        <TextBox Margin="730,363,30,609" TextWrapping="Wrap" Text="" Width="140" />
+        <TextBox Margin="730,398,30,574" TextWrapping="Wrap" Text="" Width="140" />
+        <TextBox Margin="730,433,30,539" TextWrapping="Wrap" Text="" Width="140" />
+        <Label Content="Amount paid" Margin="581,326,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Amount earned" Margin="581,359,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Final balance" Margin="581,394,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Total fees" Margin="581,429,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <!--#endregion-->
+
+        <!--#region Results for-->
+        <TextBlock x:Name="RepeatedName" HorizontalAlignment="Left" Margin="20,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21" Width="132" FontWeight="Bold" />
+        <TextBox x:Name="BMIbox" HorizontalAlignment="Left" Margin="264,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" />
+        <TextBox x:Name="Weight_Category" Margin="264,321,361,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" />
+        <Label Content="BMI" HorizontalAlignment="Left" Margin="25,285,0,0" VerticalAlignment="Top" Width="105" />
+        <Label Content="Weight category" HorizontalAlignment="Left" Margin="25,317,0,0" VerticalAlignment="Top" Width="105" />
+        <TextBlock x:Name="CalculateBmiResult" HorizontalAlignment="Left" Margin="25,376,0,0" TextWrapping="Wrap" Text="Normal BMI is between xx.xx and yy.y" VerticalAlignment="Top" Width="514" Height="31" TextAlignment="Center" Foreground="#FF6DA934" />
+        <TextBlock x:Name="CalculateBmiTarget" HorizontalAlignment="Left" Margin="25,420,0,0" TextWrapping="Wrap" Text="Normal weight should be between xxx and yyy lbs" VerticalAlignment="Top" Width="514" Height="31" TextAlignment="Center" />
+        <!--#endregion-->
+
+        <!--#region BMR Calculator-->
+        <Label Content="Age" HorizontalAlignment="Left" Margin="36,0,0,91" Width="33" Height="26" VerticalAlignment="Bottom" />
+        <TextBox HorizontalAlignment="Left" Margin="91,890,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" Height="18" />
+        <!--#endregion-->
+
+        <!--#region Unit-->
+        <RadioButton x:Name="UnitImperial" Content="Imperial (ft, lbs)" HorizontalAlignment="Left" Margin="402,86,0,0" VerticalAlignment="Top" Width="128" Checked="UnitImperial_Checked" />
+        <RadioButton x:Name="UnitMetric" Content="Metric (kg, cm)" HorizontalAlignment="Left" Margin="402,52,0,0" VerticalAlignment="Top" Width="128" Checked="UnitMetric_Checked" />
+        <!--#endregion-->
+
+        <!--#region Weekly Activity Level-->
+        <RadioButton Content="Sedentary (little or no exercise)" HorizontalAlignment="Left" Margin="36,694,0,0" VerticalAlignment="Top" Width="193" />
+        <RadioButton Content="Lightly active (1 to 3 times)" HorizontalAlignment="Left" Margin="36,714,0,0" VerticalAlignment="Top" Width="193" />
+        <RadioButton Content="Moderately active (3 to 5 times)" HorizontalAlignment="Left" Margin="36,734,0,0" VerticalAlignment="Top" Width="193" />
+        <RadioButton Content="Very active (6 to 7 times)" HorizontalAlignment="Left" Margin="36,754,0,0" VerticalAlignment="Top" Width="193" />
+        <RadioButton Content="Extra active, hard exercise or job" HorizontalAlignment="Left" Margin="36,774,0,0" VerticalAlignment="Top" Width="194" />
+        <!--#endregion-->
+
+        <!--#region Gender-->
+        <RadioButton Content="Female" HorizontalAlignment="Left" Margin="34,573,0,0" VerticalAlignment="Top" Width="166" />
+        <RadioButton Content="Male" HorizontalAlignment="Left" Margin="34,593,0,0" VerticalAlignment="Top" Width="166" />
+        <!--#endregion-->
     </Grid>
 </Window>
