@@ -21,7 +21,7 @@
         <GroupBox Header="BMR Calculator" Margin="10,488,10,48" />
         <GroupBox Header="Gender" Margin="25,528,691,0" Height="120" VerticalAlignment="Top" />
         <GroupBox Header="Weekly Activity Level" Margin="30,660,665,136" />
-        <ListBox x:Name="BmrCalculatorResults" Margin="250,528,30,171" />
+        <ListBox x:Name="BmrCalculatorResults" Margin="250,528,30,171" d:ItemsSource="{d:SampleData ItemCount=5}" />
         <Button x:Name="Button_CalculateBMR" Content="Calculate BMR" Margin="0,875,214,0" HorizontalAlignment="Right" Width="220" Height="40" VerticalAlignment="Top" Click="Button_CalculateBMR_Click" />
         <!--#endregion-->
 

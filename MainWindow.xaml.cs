@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Assignment_3
 {
@@ -81,7 +80,29 @@ namespace Assignment_3
 
         private bool ReadWeight()
         {
-            throw new NotImplementedException();
+            string weight = WeightContent.Text;
+            bool ok = double.TryParse(weight, out double outValue);
+            if (ok)
+                if (outValue > 0)   //  Weight cannot be zero or negative
+                {
+                    if (bmiCalc.GetUnit() == UnitTypes.Imperial)
+                    {
+                        bmiCalc.SetHeight(outValue * 12.00);
+                    }
+                    else
+                    {
+                        bmiCalc.SetHeight(outValue / 100.0);
+                    }
+                }
+                else
+                {
+                    ok = false;
+                }
+
+            if (!ok)
+                MessageBox.Show("Invalid weight value!", "Error");
+
+            return ok;
         }
 
         private bool ReadHeight()

@@ -5,12 +5,12 @@ namespace Assignment_3
     internal class BMICalculator
     {
         private string name = "No Name";
-        private double height = 0;  //m, feet
-        private double weight = 0;  //kg, lb
-        private UnitTypes unit;
+        private double height;  //m, feet
+        private readonly double weight;  //kg, lb
+        private readonly UnitTypes unit;
 
-        private int meterFeet = 0;
-        private int centimeterInch = 0;
+        private readonly int meterFeet;
+        private readonly int centimeterInch;
 
         public string GetName()
         {
@@ -42,8 +42,6 @@ namespace Assignment_3
         {
             if (value >= 0)
                 height = value;
-
-            double heightCombined = meterFeet + centimeterInch;
         }
 
         public UnitTypes GetUnit()
@@ -56,9 +54,10 @@ namespace Assignment_3
             return unit;
         }
 
-        public double GetWeight()
+        public void GetWeight(double value)
         {
-            return weight;
+            if (value >= 0)
+                height = value;
         }
 
         public double SetWeight()
