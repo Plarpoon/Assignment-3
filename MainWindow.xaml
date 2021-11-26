@@ -27,9 +27,9 @@
 
         <!--#region BMI Calculator-->
         <TextBox x:Name="NameContent" Margin="186,51,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-        <TextBox x:Name="HeightContent2" Margin="264,84,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-        <TextBox x:Name="HeightContent1" HorizontalAlignment="Left" Margin="186,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" />
-        <TextBox x:Name="WeightContent" Margin="186,110,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="HeightContent2" PreviewTextInput="NumberValidationTextBox" Margin="264,84,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="HeightContent1" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="186,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" />
+        <TextBox x:Name="WeightContent" PreviewTextInput="NumberValidationTextBox" Margin="186,110,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         <Label Content="Name" HorizontalAlignment="Left" Margin="25,47,0,0" VerticalAlignment="Top" Width="105" />
         <Label x:Name="BmiCalculatorHeight" Content="Height (ft and in)" HorizontalAlignment="Left" Margin="25,80,0,0" VerticalAlignment="Top" Width="127" />
         <Label x:Name="BmiCalculatorWeight" Content="Weight (lbs)" HorizontalAlignment="Left" Margin="25,106,0,0" VerticalAlignment="Top" Width="127" />

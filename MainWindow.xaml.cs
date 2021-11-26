@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Assignment_3
 {
@@ -46,30 +48,42 @@ namespace Assignment_3
         private void Button_CalculateBMI_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ReadInputBMI();
+            OutputBMI();
         }
 
-        private bool ReadInputBMI()
+        private void OutputBMI()
         {
-            bool name = ReadName();
+            WriteName();
+            WriteBMI();
+        }
+
+        private void WriteBMI()
+        {
+            WriteName();
+            BMIbox.Text = bmiCalc.CalculateBMI();
+        }
+
+        public bool ReadInputBMI()
+        {
             bool height = ReadHeight();
             bool weight = ReadWeight();
 
-            return name && height && weight;
+            return height && weight;
         }
 
-        private bool ReadName()
+        private bool WriteName()
         {
             bool ok;
             string name = NameContent.Text;
             name = name.Trim();
             if (name == null || name.Length == 0)
             {
-                RepeatedName.Text = name;
-                ok = true;
+                ok = false;
             }
             else
             {
-                ok = false;
+                RepeatedName.Text = name;
+                ok = true;
             }
 
             if (!ok)
@@ -78,28 +92,27 @@ namespace Assignment_3
             return ok;
         }
 
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private bool ReadWeight()
         {
-            string weight = WeightContent.Text;
-            bool ok = double.TryParse(weight, out double outValue);
-            if (ok)
-                if (outValue > 0)   //  Weight cannot be zero or negative
-                {
-                    if (bmiCalc.GetUnit() == UnitTypes.Imperial)
-                    {
-                        bmiCalc.SetHeight(outValue * 12.00);
-                    }
-                    else
-                    {
-                        bmiCalc.SetHeight(outValue / 100.0);
-                    }
-                }
-                else
-                {
-                    ok = false;
-                }
+            bool ok;
+            double weight = bmiCalc.GetWeight();
+            if (weight != 0)
+            {
+                bmiCalc.SetWeight();
+                ok = true;
+            }
+            else
+            {
+                ok = false;
+            }
 
-            if (!ok)
+            if (ok)
                 MessageBox.Show("Invalid weight value!", "Error");
 
             return ok;
@@ -107,26 +120,18 @@ namespace Assignment_3
 
         private bool ReadHeight()
         {
-            string height = HeightContent1.Text + HeightContent2.Text;
-            bool ok = double.TryParse(height, out double outValue);
+            bool ok = bmiCalc.heightParsing;
             if (ok)
-                if (outValue > 0)   //  Height cannot be zero or negative
-                {
-                    if (bmiCalc.GetUnit() == UnitTypes.Imperial)
-                    {
-                        bmiCalc.SetHeight(outValue * 12.00);
-                    }
-                    else
-                    {
-                        bmiCalc.SetHeight(outValue / 100.0);
-                    }
-                }
-                else
-                {
-                    ok = false;
-                }
+            {
+                bmiCalc.SetHeight();
+                ok = true;
+            }
+            else
+            {
+                ok = false;
+            }
 
-            if (!ok)
+            if (ok)
                 MessageBox.Show("Invalid height value!", "Error");
 
             return ok;
