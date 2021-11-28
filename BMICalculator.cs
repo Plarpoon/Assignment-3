@@ -14,6 +14,8 @@ namespace Assignment_3
         private string centimeterInch = "0";
         public bool heightParsing = false;
 
+        public string? BMI;
+
         public string GetName()
         {
             return name;
@@ -24,7 +26,6 @@ namespace Assignment_3
             if (!string.IsNullOrEmpty(value))
             {
                 name = value;
-                Debug.WriteLine("Name value in the backend is:\n" + name + "\n");
             }
         }
 
@@ -33,12 +34,12 @@ namespace Assignment_3
             return meterFeet;
         }
 
-        public void SetMeterFeet(string value)
+        public void SetMeterFeet(string MF)
         {
-            value = value.Trim();
-            if (value.Length != 0 || value != null)
+            MF = MF.Trim();
+            if (MF.Length != 0 || MF != null)
             {
-                meterFeet = value;
+                meterFeet = MF;
             }
         }
 
@@ -47,12 +48,12 @@ namespace Assignment_3
             return centimeterInch;
         }
 
-        public void SetCentimeterInch(string value)
+        public void SetCentimeterInch(string CI)
         {
-            value = value.Trim();
-            if (value.Length != 0 || value != null)
+            CI = CI.Trim();
+            if (CI.Length != 0 || CI != null)
             {
-                centimeterInch = value;
+                centimeterInch = CI;
             }
         }
 
@@ -61,14 +62,12 @@ namespace Assignment_3
             return height;
         }
 
-        public void SetHeight()
+        public double SetHeight()
         {
-            string MF = GetMeterFeet();
-            string CI = GetCentimeterInch();
-            string heightValue = MF + CI;
+            string heightValue = meterFeet + "," + centimeterInch;  //  Need to see this as comma and not just .
             heightParsing = double.TryParse(heightValue, out height);
 
-            Debug.WriteLine("Height value in the backend is:\n" + height + "\n");
+            return height;
         }
 
         public UnitTypes GetUnit()
@@ -86,17 +85,18 @@ namespace Assignment_3
             return weight;
         }
 
-        public double SetWeight()
+        public void SetWeight(double weightTxt)
         {
-            Debug.WriteLine("Weight value in the backend is:\n" + weight + "\n");
-            return weight;
+            if (weightTxt > 0.0)
+            {
+                weight = weightTxt;
+            }
         }
 
         public string CalculateBMI()
         {
-            string BMI;
-            weight = GetHeight();   //  ERROR: breakpoint signs 0.
-            height = GetHeight();   //  ERROR: breakpoint signs 0.
+            weight = GetWeight();
+            height = SetHeight();
 
             if (GetUnit() == UnitTypes.Metric)
             {
@@ -108,8 +108,14 @@ namespace Assignment_3
                 //  why would anyone in their sane mind willingly use Imperial!?
             }
 
+            //  Debugging, ignore this section.
+            Debug.WriteLine("meterFeet value in the backend is:\n" + meterFeet + "\n");
+            Debug.WriteLine("centimeterInch value in the backend is:\n" + centimeterInch + "\n");
+            Debug.WriteLine("Weight value in the backend is:\n" + weight + "\n");
+            Debug.WriteLine("Height value in the backend is:\n" + height + "\n");
             Debug.WriteLine("BMI value in the backend is:\n" + BMI + "\n");
-            return BMI; // ERROR: outputs a NaN.
+
+            return BMI;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Assignment_3
             CalculateBmiTarget.Text = string.Empty;
         }
 
-        private void UnitImperial_Checked(object sender, System.Windows.RoutedEventArgs e)
+        private void UnitImperial_Checked(object sender, RoutedEventArgs e)
         {
             //  When Unit Imperial is selected do the below.
             UnitMetric.IsChecked = false;
@@ -37,7 +37,7 @@ namespace Assignment_3
             BmiCalculatorWeight.Content = "Weight (lbs)";
         }
 
-        private void UnitMetric_Checked(object sender, System.Windows.RoutedEventArgs e)
+        private void UnitMetric_Checked(object sender, RoutedEventArgs e)
         {
             //  When Unit Metric is selected do the below.
             UnitImperial.IsChecked = false;
@@ -45,30 +45,44 @@ namespace Assignment_3
             BmiCalculatorWeight.Content = "Weight (kg)";
         }
 
-        private void Button_CalculateBMI_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ReadInputBMI();
-            OutputBMI();
-        }
-
-        private void OutputBMI()
+        private void Button_CalculateBMI_Click(object sender, RoutedEventArgs e)
         {
             WriteName();
-            WriteBMI();
+            HeightBuilder();
+            WriteWeight();
+
+            bmiCalc.CalculateBMI();
+            BMIbox.Text = bmiCalc.BMI;
         }
 
-        private void WriteBMI()
+        private void HeightBuilder()
         {
-            WriteName();
-            BMIbox.Text = bmiCalc.CalculateBMI();
+            string MF = HeightContent1.Text;
+            string CI = HeightContent2.Text;
+
+            bmiCalc.SetCentimeterInch(CI);
+            bmiCalc.SetMeterFeet(MF);
         }
 
-        public bool ReadInputBMI()
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            bool height = ReadHeight();
-            bool weight = ReadWeight();
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
 
-            return height && weight;
+        private bool WriteWeight()
+        {
+            bool ok = double.TryParse(WeightContent.Text, out double weightTxt);
+            if (ok)
+            {
+                bmiCalc.SetWeight(weightTxt);
+            }
+            else
+            {
+                MessageBox.Show("Invalid weight value!", "Error");
+            }
+
+            return ok;
         }
 
         private bool WriteName()
@@ -92,56 +106,11 @@ namespace Assignment_3
             return ok;
         }
 
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-        private bool ReadWeight()
-        {
-            bool ok;
-            double weight = bmiCalc.GetWeight();
-            if (weight != 0)
-            {
-                bmiCalc.SetWeight();
-                ok = true;
-            }
-            else
-            {
-                ok = false;
-            }
-
-            if (ok)
-                MessageBox.Show("Invalid weight value!", "Error");
-
-            return ok;
-        }
-
-        private bool ReadHeight()
-        {
-            bool ok = bmiCalc.heightParsing;
-            if (ok)
-            {
-                bmiCalc.SetHeight();
-                ok = true;
-            }
-            else
-            {
-                ok = false;
-            }
-
-            if (ok)
-                MessageBox.Show("Invalid height value!", "Error");
-
-            return ok;
-        }
-
-        private void Button_CalculateSavings_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_CalculateSavings_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void Button_CalculateBMR_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_CalculateBMR_Click(object sender, RoutedEventArgs e)
         {
         }
     }
