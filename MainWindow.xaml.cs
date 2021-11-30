@@ -47,12 +47,28 @@ namespace Assignment_3
 
         private void Button_CalculateBMI_Click(object sender, RoutedEventArgs e)
         {
+            MeasurementUnit();
             WriteName();
             HeightBuilder();
             WriteWeight();
 
             bmiCalc.CalculateBMI();
             BMIbox.Text = bmiCalc.BMI;
+        }
+
+        private void MeasurementUnit()
+        {
+            UnitTypes value;
+            if (UnitMetric.IsChecked == true)
+            {
+                value = UnitTypes.Metric;
+                bmiCalc.SetUnit(value);
+            }
+            else
+            {
+                value = UnitTypes.Imperial;
+                bmiCalc.SetUnit(value);
+            }
         }
 
         private void HeightBuilder()

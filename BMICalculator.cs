@@ -8,7 +8,7 @@ namespace Assignment_3
         private string name = "No Name";
         private double height = 0;  //m, feet
         private double weight = 0;  //kg, lb
-        private readonly UnitTypes unit;
+        private UnitTypes unit;
 
         private string meterFeet = "0";
         private string centimeterInch = "0";
@@ -64,8 +64,17 @@ namespace Assignment_3
 
         public double SetHeight()
         {
-            string heightValue = meterFeet + "," + centimeterInch;  //  Need to see this as comma and not just .
-            heightParsing = double.TryParse(heightValue, out height);
+            if (unit == UnitTypes.Metric)
+            {
+                string heightValue = meterFeet + "," + centimeterInch;
+                heightParsing = double.TryParse(heightValue, out height);
+            }
+            else
+            {
+                int tempFoot = int.Parse(meterFeet);
+                int tempInch = int.Parse(centimeterInch);
+                height = (tempFoot * 12) + tempInch;    // in inches.
+            }
 
             return height;
         }
@@ -75,9 +84,9 @@ namespace Assignment_3
             return unit;
         }
 
-        public UnitTypes SetUnit()
+        public void SetUnit(UnitTypes value)
         {
-            return unit;
+            unit = value;
         }
 
         public double GetWeight()
@@ -95,20 +104,24 @@ namespace Assignment_3
 
         public string CalculateBMI()
         {
-            weight = GetWeight();
+            double temp;
             height = SetHeight();
+            //  used formula: http://people.maths.ox.ac.uk/trefethen/bmi.html
+            height = Math.Pow(height, 2.5);
 
-            if (GetUnit() == UnitTypes.Metric)
+            if (unit == UnitTypes.Metric)
             {
-                BMI = (weight / Math.Sqrt(height)).ToString();
+                temp = 1.3 * weight / height;
+                BMI = Math.Round(temp, 2).ToString();
             }
             else
             {
-                BMI = (weight / Math.Sqrt(height) * 703).ToString();
-                //  why would anyone in their sane mind willingly use Imperial!?
+                temp = 5734 * weight / height;
+                BMI = Math.Round(temp, 2).ToString();
+                //  why would anyone in their sane mind willingly choose to use Imperial!?
             }
 
-            //  Debugging, ignore this section.
+            //  Debugging, use for testing or ignore this section.
             Debug.WriteLine("meterFeet value in the backend is:\n" + meterFeet + "\n");
             Debug.WriteLine("centimeterInch value in the backend is:\n" + centimeterInch + "\n");
             Debug.WriteLine("Weight value in the backend is:\n" + weight + "\n");
