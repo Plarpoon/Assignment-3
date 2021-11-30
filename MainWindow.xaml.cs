@@ -29,6 +29,14 @@ namespace Assignment_3
             CalculateBmiTarget.Text = string.Empty;
         }
 
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        #region BMI Calculator
+
         private void UnitImperial_Checked(object sender, RoutedEventArgs e)
         {
             //  When Unit Imperial is selected do the below.
@@ -47,13 +55,42 @@ namespace Assignment_3
 
         private void Button_CalculateBMI_Click(object sender, RoutedEventArgs e)
         {
+            //  prep phase.
             MeasurementUnit();
-            WriteName();
+            _ = GetName();
+            WriteRepeatedName();
             HeightBuilder();
-            WriteWeight();
+            _ = WriteWeight();
 
-            bmiCalc.CalculateBMI();
-            BMIbox.Text = bmiCalc.BMI;
+            //  BMI phase.
+            _ = bmiCalc.CalculateBMI();
+            BMIbox.Content = bmiCalc.BMI.ToString();
+
+            //  Weight category phase.
+            bmiCalc.SetWeightCategory();
+            Weight_Category.Content = bmiCalc.weightCategory;
+
+            //  Green indication phase and
+            //  Non standard weight indication phase.
+            if (bmiCalc.normalWeight == false)
+            {
+                CalculateBmiResult.Text = bmiCalc.CalculateBmiTarget;
+                switch (bmiCalc.unit)
+                {
+                    case UnitTypes.Metric:
+                        {
+                            CalculateBmiTarget.Text = "Normal weight should be between 75 and 80 kilos";
+                            break;
+                        }
+                    case UnitTypes.Imperial:
+                        {
+                            CalculateBmiTarget.Text = "Normal weight should be between 165 and 175 libs";
+                            break;
+                        }
+                }   //  I couldn't really understand what was required to be written under "normal weight" as it vastly differs
+                    //  with age, height, body type, gender and muscolar tone so I just used the link provided in your PDF
+                    //  and made an average using the chart at the bottom of the page: https://www.thecalculatorsite.com/health/bmicalculator.php
+            }
         }
 
         private void MeasurementUnit()
@@ -80,12 +117,6 @@ namespace Assignment_3
             bmiCalc.SetMeterFeet(MF);
         }
 
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
         private bool WriteWeight()
         {
             bool ok = double.TryParse(WeightContent.Text, out double weightTxt);
@@ -95,32 +126,39 @@ namespace Assignment_3
             }
             else
             {
-                MessageBox.Show("Invalid weight value!", "Error");
+                _ = MessageBox.Show("Invalid weight value!", "Error");
             }
 
             return ok;
         }
 
-        private bool WriteName()
+        private bool GetName()
         {
             bool ok;
-            string name = NameContent.Text;
-            name = name.Trim();
-            if (name == null || name.Length == 0)
+            string value = NameContent.Text;
+            value = value.Trim();
+            if (value == null || value.Length == 0)
             {
                 ok = false;
             }
             else
             {
-                RepeatedName.Text = name;
+                bmiCalc.SetName(value);
                 ok = true;
             }
 
             if (!ok)
-                MessageBox.Show("Please input a name!", "Error");
+                _ = MessageBox.Show("Please input a name!", "Error");
 
             return ok;
         }
+
+        private void WriteRepeatedName()
+        {
+            RepeatedName.Text = bmiCalc.name;
+        }
+
+        #endregion BMI Calculator
 
         private void Button_CalculateSavings_Click(object sender, RoutedEventArgs e)
         {

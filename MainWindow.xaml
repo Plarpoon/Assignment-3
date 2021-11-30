@@ -60,12 +60,12 @@
 
         <!--#region Results for-->
         <TextBlock x:Name="RepeatedName" HorizontalAlignment="Left" Margin="20,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21" Width="132" FontWeight="Bold" />
-        <TextBox x:Name="BMIbox" HorizontalAlignment="Left" Margin="264,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" />
-        <TextBox x:Name="Weight_Category" Margin="264,321,361,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" />
+        <Label x:Name="BMIbox" HorizontalAlignment="Left" Margin="264,282,0,0" VerticalAlignment="Top" Width="78" IsEnabled="False" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Height="31" RenderTransformOrigin="0.526,-0.547" />
+        <Label x:Name="Weight_Category" Margin="264,318,361,0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Width="275" Height="31" />
         <Label Content="BMI" HorizontalAlignment="Left" Margin="25,285,0,0" VerticalAlignment="Top" Width="105" />
         <Label Content="Weight category" HorizontalAlignment="Left" Margin="25,317,0,0" VerticalAlignment="Top" Width="105" />
         <TextBlock x:Name="CalculateBmiResult" HorizontalAlignment="Left" Margin="25,376,0,0" TextWrapping="Wrap" Text="Normal BMI is between xx.xx and yy.y" VerticalAlignment="Top" Width="514" Height="31" TextAlignment="Center" Foreground="#FF6DA934" />
-        <TextBlock x:Name="CalculateBmiTarget" HorizontalAlignment="Left" Margin="25,420,0,0" TextWrapping="Wrap" Text="Normal weight should be between xxx and yyy lbs" VerticalAlignment="Top" Width="514" Height="31" TextAlignment="Center" />
+        <TextBlock x:Name="CalculateBmiTarget" HorizontalAlignment="Left" Margin="25,420,0,0" TextWrapping="Wrap" Text="Normal weight should be between xxx and yyy kilos" VerticalAlignment="Top" Width="514" Height="31" TextAlignment="Center" />
         <!--#endregion-->
 
         <!--#region BMR Calculator-->

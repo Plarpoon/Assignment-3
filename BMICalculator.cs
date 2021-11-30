@@ -5,16 +5,22 @@ namespace Assignment_3
 {
     internal class BMICalculator
     {
-        private string name = "No Name";
-        private double height = 0;  //m, feet
-        private double weight = 0;  //kg, lb
-        private UnitTypes unit;
+        //  formula: http://people.maths.ox.ac.uk/trefethen/bmi.html
+
+        public string name = "No Name";
+        private double height;  //m, feet
+        private double weight;  //kg, lb
+        public UnitTypes unit;
 
         private string meterFeet = "0";
         private string centimeterInch = "0";
-        public bool heightParsing = false;
+        public bool heightParsing;
 
-        public string? BMI;
+        public double BMI;
+        public string weightCategory = "no weight category";
+        public bool normalWeight;
+        //public string calculateBmiResult;
+        public string CalculateBmiTarget = "Normal weight should be between 19 – 24,9 ";
 
         public string GetName()
         {
@@ -102,33 +108,98 @@ namespace Assignment_3
             }
         }
 
-        public string CalculateBMI()
+        public double CalculateBMI()
         {
             double temp;
-            height = SetHeight();
-            //  used formula: http://people.maths.ox.ac.uk/trefethen/bmi.html
+            _ = SetHeight();
             height = Math.Pow(height, 2.5);
 
             if (unit == UnitTypes.Metric)
             {
                 temp = 1.3 * weight / height;
-                BMI = Math.Round(temp, 2).ToString();
+                BMI = Math.Round(temp, 2);
             }
             else
             {
                 temp = 5734 * weight / height;
-                BMI = Math.Round(temp, 2).ToString();
+                BMI = Math.Round(temp, 2);
                 //  why would anyone in their sane mind willingly choose to use Imperial!?
             }
 
-            //  Debugging, use for testing or ignore this section.
+            //  Debugging, use it for testing or ignore this section.
             Debug.WriteLine("meterFeet value in the backend is:\n" + meterFeet + "\n");
             Debug.WriteLine("centimeterInch value in the backend is:\n" + centimeterInch + "\n");
             Debug.WriteLine("Weight value in the backend is:\n" + weight + "\n");
             Debug.WriteLine("Height value in the backend is:\n" + height + "\n");
             Debug.WriteLine("BMI value in the backend is:\n" + BMI + "\n");
+            //  End of Debugging text.
 
             return BMI;
+        }
+
+        public string GetWeightCategory()
+        {
+            return weightCategory;
+        }
+
+        public void SetWeightCategory()
+        {
+            switch (BMI)
+            {
+                case < 14.9:
+                    {
+                        weightCategory = "severely underweight";
+                        normalWeight = false;
+                        break;
+                    }
+                case < 17.9:
+                    {
+                        weightCategory = "significantly underweight";
+                        normalWeight = false;
+                        break;
+                    }
+                case < 18.9:
+                    {
+                        weightCategory = "slightly underweight";
+                        normalWeight = false;
+                        break;
+                    }
+                case < 24.9:
+                    {
+                        weightCategory = "normal weight";
+                        normalWeight = true;
+                        break;
+                    }
+                case < 29.9:
+                    {
+                        weightCategory = "slightly overweight";
+                        normalWeight = false;
+                        break;
+                    }
+                case < 34.9:
+                    {
+                        weightCategory = "significantly overweight";
+                        normalWeight = false;
+                        break;
+                    }
+                case < 39.9:
+                    {
+                        weightCategory = "severely obese";
+                        normalWeight = false;
+                        break;
+                    }
+                case > 40.0:
+                    {
+                        weightCategory = "patologically obese";
+                        normalWeight = false;
+                        break;
+                    }
+                default:
+                    {
+                        normalWeight = false;
+                        break;
+                    }
+            }
         }
     }
 }
