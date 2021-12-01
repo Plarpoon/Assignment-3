@@ -7,7 +7,6 @@
         Title="Super Calculator by Alex" Height="1000" Width="900" ResizeMode="NoResize">
 
     <Grid Background="#FFDADADA" Margin="0,0,0,0" Height="1000" Width="900">
-        <!-- UpdateSourceTrigger=PropertyChanged makes sure that changes in the TextBoxes are immediately applied to the model. -->
 
         <!--#region Skeleton-->
         <GroupBox Header="BMI Calculator" Margin="10,10,539,814" />
@@ -27,35 +26,36 @@
 
         <!--#region BMI Calculator-->
         <TextBox x:Name="NameContent" Margin="186,51,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-        <TextBox x:Name="HeightContent2" PreviewTextInput="NumberValidationTextBox" Margin="264,84,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-        <TextBox x:Name="HeightContent1" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="186,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" />
-        <TextBox x:Name="WeightContent" PreviewTextInput="NumberValidationTextBox" Margin="186,110,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="HeightContent1" PreviewTextInput="NumberOnlyValidationTextBox" HorizontalAlignment="Left" Margin="186,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" />
+        <TextBox x:Name="HeightContent2" PreviewTextInput="NumberOnlyValidationTextBox" Margin="264,84,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="WeightContent" PreviewTextInput="NumberOnlyValidationTextBox" Margin="186,110,558,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         <Label Content="Name" HorizontalAlignment="Left" Margin="25,47,0,0" VerticalAlignment="Top" Width="105" />
         <Label x:Name="BmiCalculatorHeight" Content="Height (ft and in)" HorizontalAlignment="Left" Margin="25,80,0,0" VerticalAlignment="Top" Width="127" />
         <Label x:Name="BmiCalculatorWeight" Content="Weight (lbs)" HorizontalAlignment="Left" Margin="25,106,0,0" VerticalAlignment="Top" Width="127" />
         <!--#endregion-->
 
         <!--#region Saving Plan-->
-        <TextBox Margin="730,51,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
-        <TextBox Margin="730,84,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
-        <TextBox Margin="730,110,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
-        <TextBox Margin="730,137,30,0" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
-        <TextBox Margin="730,168,30,804" TextWrapping="Wrap" Text="" Width="140" />
+        <TextBox x:Name="InitialDepositBox" Margin="730,51,30,0" PreviewTextInput="NumberAndFloatValidationTextBox" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox x:Name="MonthlyDepositBox" Margin="730,84,30,0" PreviewTextInput="NumberAndFloatValidationTextBox" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox x:Name="PeriodYearsBox" Margin="730,110,30,0" PreviewTextInput="NumberAndFloatValidationTextBox" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox x:Name="GrowthInterestBox" Margin="730,137,30,0" PreviewTextInput="NumberAndFloatValidationTextBox" TextWrapping="Wrap" Text="" Height="18" VerticalAlignment="Top" Width="140" />
+        <TextBox x:Name="FeesPercentageBox" Margin="730,168,30,804" PreviewTextInput="NumberAndFloatValidationTextBox" TextWrapping="Wrap" Text="" Width="140" />
+        <Label Content="Pre-existing deposit" Margin="581,46,190,0" VerticalAlignment="Top" Height="26" />
         <Label Content="Monthly deposit" Margin="581,80,205,0" VerticalAlignment="Top" Width="114" Height="26" />
-        <Label Content="Period (years)" Margin="581,106,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label Content="Period (years)" Margin="581,107,205,0" VerticalAlignment="Top" Width="114" Height="26" />
         <Label Content="Growth (or interest) in %" Margin="581,133,205,0" VerticalAlignment="Top" Height="26" Width="114" />
         <Label Content="Fees in %" Margin="581,164,205,800" Width="114" />
         <!--#endregion-->
 
         <!--#region Future value-->
-        <TextBox Margin="730,330,30,642" TextWrapping="Wrap" Text="" Width="140" />
-        <TextBox Margin="730,363,30,609" TextWrapping="Wrap" Text="" Width="140" />
-        <TextBox Margin="730,398,30,574" TextWrapping="Wrap" Text="" Width="140" />
-        <TextBox Margin="730,433,30,539" TextWrapping="Wrap" Text="" Width="140" />
-        <Label Content="Amount paid" Margin="581,326,205,0" VerticalAlignment="Top" Width="114" Height="26" />
-        <Label Content="Amount earned" Margin="581,359,205,0" VerticalAlignment="Top" Width="114" Height="26" />
-        <Label Content="Final balance" Margin="581,394,205,0" VerticalAlignment="Top" Width="114" Height="26" />
-        <Label Content="Total fees" Margin="581,429,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label x:Name="AmountPaidLabel" Margin="730,330,30,639" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Height="31" />
+        <Label x:Name="AmountEarnedLabel" Margin="730,364,30,605" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Height="31" />
+        <Label x:Name="FinalBalanceLabel" Margin="730,398,30,571" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Height="31" />
+        <Label x:Name="TotalFeesLabel" Margin="730,432,30,537" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" Height="31" />
+        <Label x:Name="AmountPaid_Title" Content="Amount paid" Margin="581,326,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label x:Name="AmountEarned_Title" Content="Amount earned" Margin="581,359,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label x:Name="FinalBalance_Title" Content="Final balance" Margin="581,394,205,0" VerticalAlignment="Top" Width="114" Height="26" />
+        <Label x:Name="TotalFees_Title" Content="Total fees" Margin="581,429,205,0" VerticalAlignment="Top" Width="114" Height="26" />
         <!--#endregion-->
 
         <!--#region Results for-->

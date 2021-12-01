@@ -19,8 +19,7 @@ namespace Assignment_3
         public double BMI;
         public string weightCategory = "no weight category";
         public bool normalWeight;
-        //public string calculateBmiResult;
-        public string CalculateBmiTarget = "Normal weight should be between 19 – 24,9 ";
+        public string CalculateBmiTarget = "Normal BMI should be between 19 – 24,9 ";
 
         public string GetName()
         {
@@ -191,11 +190,6 @@ namespace Assignment_3
                 case > 40.0:
                     {
                         weightCategory = "patologically obese";
-                        normalWeight = false;
-                        break;
-                    }
-                default:
-                    {
                         normalWeight = false;
                         break;
                     }

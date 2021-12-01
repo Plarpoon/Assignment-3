@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,8 +10,8 @@ namespace Assignment_3
         //  Declare and create an instance of the BMI Calculator.
         private readonly BMICalculator bmiCalc = new();
 
-        ////  Declare and create an instance of the SavingCalculator.
-        //private readonly SavingCalculator savingCalc = new();
+        //  Declare and create an instance of the SavingCalculator.
+        private readonly SavingCalculator savingCalc = new();
 
         ////  Declare and create an instance of the BMR Calculator.
         //private readonly BMRCalculator bmrCalc = new();
@@ -29,9 +30,15 @@ namespace Assignment_3
             CalculateBmiTarget.Text = string.Empty;
         }
 
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        private void NumberOnlyValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void NumberAndFloatValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9.]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -160,9 +167,116 @@ namespace Assignment_3
 
         #endregion BMI Calculator
 
+        #region Saving Calculator
+
+        private bool InitialDeposit()
+        {
+            bool ok = double.TryParse(InitialDepositBox.Text, out double deposit);
+            if (ok)
+            {
+                savingCalc.SetInitialDeposit(deposit);
+            }
+            else
+            {
+                _ = MessageBox.Show("Invalid deposit value!", "Error");
+            }
+
+            return ok;
+        }
+
+        private bool MonthlyDeposit()
+        {
+            bool ok = double.TryParse(MonthlyDepositBox.Text, out double monthlyDeposit);
+            if (ok)
+            {
+                savingCalc.SetMonthlyDeposit(monthlyDeposit);
+            }
+            else
+            {
+                _ = MessageBox.Show("Invalid monthly deposit value!", "Error");
+            }
+
+            return ok;
+        }
+
+        private bool PeriodYears()
+        {
+            bool ok = double.TryParse(PeriodYearsBox.Text, out double periodYears);
+            if (ok)
+            {
+                savingCalc.SetPeriodYears(periodYears);
+            }
+            else
+            {
+                _ = MessageBox.Show("Invalid period value!", "Error");
+            }
+
+            return ok;
+        }
+
+        private bool GrowthInterest()
+        {
+            bool ok = double.TryParse(GrowthInterestBox.Text, out double growthInterest);
+            if (ok)
+            {
+                savingCalc.SetGrowthInterest(growthInterest);
+            }
+            else
+            {
+                _ = MessageBox.Show("Invalid growth value!", "Error");
+            }
+
+            return ok;
+        }
+
+        private bool FeesPercentage()
+        {
+            bool ok = double.TryParse(FeesPercentageBox.Text, out double feesPercentage);
+            if (ok)
+            {
+                savingCalc.SetFeesPercentage(feesPercentage);
+            }
+            else
+            {
+                _ = MessageBox.Show("Invalid fees value!", "Error");
+            }
+
+            return ok;
+        }
+
         private void Button_CalculateSavings_Click(object sender, RoutedEventArgs e)
         {
+            ReadSavingPlanData();
+            CalculateSavingPlanData();
+            WriteSavingPlanData();
         }
+
+        private void ReadSavingPlanData()
+        {
+            _ = InitialDeposit();
+            _ = MonthlyDeposit();
+            _ = PeriodYears();
+            _ = GrowthInterest();
+            _ = FeesPercentage();
+        }
+
+        private void CalculateSavingPlanData()
+        {
+            _ = savingCalc.CalculateAmountPaid();
+            _ = savingCalc.CalculateAmountEarned();
+            _ = savingCalc.CalculateTotalFees();
+            _ = savingCalc.CalculateFinalBalance();
+        }
+
+        private void WriteSavingPlanData()
+        {
+            AmountPaidLabel.Content = savingCalc.amountPaid;
+            AmountEarnedLabel.Content = savingCalc.amountEarned;
+            FinalBalanceLabel.Content = savingCalc.finalBalance;
+            TotalFeesLabel.Content = savingCalc.totalFees;
+        }
+
+        #endregion Saving Calculator
 
         private void Button_CalculateBMR_Click(object sender, RoutedEventArgs e)
         {
